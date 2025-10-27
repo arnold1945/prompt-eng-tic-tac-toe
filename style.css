@@ -2,7 +2,9 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
     /* background-color: yellowgreen; */
-    background-image: url('https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExaHA5MHJjbDlhOXlnMWkzZjd0MHpsNXUwNGN6YmhoeGJjOHA2OGEybyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/A06UFEx8jxEwU/giphy.gif');
+    background-image: url('https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExaGZxN3p4OWo2NnZ2dm9nZHNsdmphN3JvcDVtOGZkd3YzMmFnNXZ3bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/S9ZLzVFg6PBAyWGUwj/giphy.gif');
+    background-position: center;
+    background-size:cover;
 
 }
 
