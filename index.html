@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tic Tac Toe (Python AI)</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <h1>Tic Tac Toe</h1>
+
+    <div class="controls">
+        <label>Choose your symbol:</label>
+        <select id="player-symbol">
+            <option value="X">X</option>
+            <option value="O">O</option>
+        </select>
+
+        <label>Difficulty:</label>
+        <select id="difficulty">
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+        </select>
+
+        <button onclick="startGame()">Start Game</button>
+    </div>
+
+    <div id="board" class="board"></div>
+
+    <p id="message"></p>
+
+    <script>
+        let playerSymbol = 'X';
+        let aiSymbol = 'O';
+        let difficulty = 'easy';
+        let gameActive = false;
+
+        function startGame() {
+            playerSymbol = document.getElementById('player-symbol').value;
+            aiSymbol = playerSymbol === 'X' ? 'O' : 'X';
+            difficulty = document.getElementById('difficulty').value;
+            gameActive = true;
+
+            document.getElementById('message').innerText = '';
+            initBoard();
+        }
+
+        function initBoard() {
+            const board = document.getElementById('board');
+            board.innerHTML = '';
+            for (let i = 0; i < 9; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'cell';
+                cell.dataset.index = i;
+                cell.addEventListener('click', () => makeMove(i));
+                board.appendChild(cell);
+            }
+        }
+
+        async function makeMove(index) {
+            if (!gameActive) return;
+
+            const cell = document.querySelector(`.cell[data-index="${index}"]`);
+            if (cell.innerText !== '') return;
+
+            cell.innerText = playerSymbol;
+
+            // Send move to backend
+            const res = await fetch("/move", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    index: index,
+                    player_symbol: playerSymbol,
+                    ai_symbol: aiSymbol,
+                    difficulty: difficulty,
+                    board: Array.from(document.querySelectorAll('.cell')).map(c => c.innerText)
+                })
+            });
+
+            const data = await res.json();
+            updateBoard(data.board);
+
+            if (data.winner) {
+                document.getElementById('message').innerText = data.winner + ' wins!';
+                gameActive = false;
+            } else if (data.draw) {
+                document.getElementById('message').innerText = 'Draw!';
+                gameActive = false;
+            }
+        }
+
+        function updateBoard(board) {
+            document.querySelectorAll('.cell').forEach((cell, i) => {
+                cell.innerText = board[i];
+            });
+        }
+    </script>
+</body>
+</html>
