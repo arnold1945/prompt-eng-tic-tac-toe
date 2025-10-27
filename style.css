@@ -1,7 +1,8 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: yellowgreen;
+    /* background-color: yellowgreen; */
+    background-image: url('https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExaHA5MHJjbDlhOXlnMWkzZjd0MHpsNXUwNGN6YmhoeGJjOHA2OGEybyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/A06UFEx8jxEwU/giphy.gif');
 
 }
 
@@ -11,6 +12,7 @@ h1 {
 
 .controls {
     margin: 20px;
+    color: yellow;
 }
 
 .board {
@@ -39,4 +41,7 @@ h1 {
 .cell:hover {
     background: #eaeaea;
     background-color: red;
+}
+#message {
+    color: yellow;
 }
